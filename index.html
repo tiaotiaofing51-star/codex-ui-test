@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>橙航国际物流 | 跨境物流服务</title>
+  <style>
+    :root {
+      --brand: #ff6600;
+      --brand-dark: #d95400;
+      --ink: #172033;
+      --muted: #667085;
+      --line: #e7eaf0;
+      --surface: #ffffff;
+      --surface-soft: #f7f8fb;
+      --shadow: 0 24px 70px rgba(23, 32, 51, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fff8f3 0%, #ffffff 42%, #f7f8fb 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .nav {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: var(--brand);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(255, 102, 0, 0.28);
+    }
+
+    .nav-link {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .hero {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 76px 0 52px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 54px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 102, 0, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 102, 0, 0.08);
+      color: var(--brand-dark);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      margin: 20px 0 18px;
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.04;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      margin: 0 0 34px;
+      color: var(--muted);
+      font-size: clamp(16px, 2.1vw, 19px);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 750;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: #fff;
+      background: var(--brand);
+      box-shadow: 0 16px 36px rgba(255, 102, 0, 0.32);
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 20px 44px rgba(255, 102, 0, 0.4);
+    }
+
+    .button-secondary {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-card {
+      position: relative;
+      padding: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+    }
+
+    .route-map {
+      min-height: 360px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 22% 26%, rgba(255, 102, 0, 0.22), transparent 26%),
+        radial-gradient(circle at 80% 72%, rgba(255, 102, 0, 0.16), transparent 25%),
+        linear-gradient(135deg, #ffffff 0%, #f2f4f7 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .route-map::before {
+      content: "";
+      position: absolute;
+      inset: 64px 46px;
+      border-top: 3px dashed rgba(255, 102, 0, 0.5);
+      border-radius: 50%;
+      transform: rotate(-10deg);
+    }
+
+    .node {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background: var(--brand);
+      box-shadow: 0 8px 22px rgba(255, 102, 0, 0.34);
+    }
+
+    .node-start {
+      left: 20%;
+      top: 34%;
+    }
+
+    .node-end {
+      right: 18%;
+      bottom: 28%;
+    }
+
+    .shipment-chip {
+      position: absolute;
+      right: 22px;
+      top: 22px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 18px 42px rgba(23, 32, 51, 0.12);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .shipment-chip strong {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 21px;
+      letter-spacing: -0.04em;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .services {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 42px 0 84px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      max-width: 420px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 18px 44px rgba(23, 32, 51, 0.06);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 102, 0, 0.36);
+      box-shadow: 0 24px 60px rgba(23, 32, 51, 0.1);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 22px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--brand);
+      font-size: 22px;
+      box-shadow: 0 14px 30px rgba(255, 102, 0, 0.24);
+    }
+
+    .service-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .service-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cta {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto 80px;
+      padding: 34px;
+      border-radius: 34px;
+      background: var(--ink);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: 0 28px 80px rgba(23, 32, 51, 0.18);
+    }
+
+    .cta h2 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .cta p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .cta .button-primary {
+      flex: 0 0 auto;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 52px;
+      }
+
+      .hero-card {
+        padding: 18px;
+      }
+
+      .route-map {
+        min-height: 300px;
+      }
+
+      .section-head,
+      .cta {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav {
+        width: min(100% - 28px, 1120px);
+        padding-top: 20px;
+      }
+
+      .nav-link {
+        display: none;
+      }
+
+      .hero,
+      .services,
+      .cta {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .hero {
+        padding-bottom: 36px;
+      }
+
+      .actions,
+      .button,
+      .cta .button-primary {
+        width: 100%;
+      }
+
+      .metric-row {
+        grid-template-columns: 1fr;
+      }
+
+      .shipment-chip {
+        left: 18px;
+        right: 18px;
+      }
+
+      .cta {
+        padding: 26px;
+        margin-bottom: 42px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="主导航">
+      <a class="logo" href="#" aria-label="橙航国际物流首页">
+        <span class="logo-mark">✦</span>
+        <span>橙航国际物流</span>
+      </a>
+      <a class="nav-link" href="#services">服务方案</a>
+    </nav>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">CROSS-BORDER LOGISTICS</p>
+        <h1 id="hero-title">让跨境物流更稳定、更可视、更高效</h1>
+        <p class="hero-copy">为电商卖家、品牌方与贸易企业提供头程运输、海外仓配与清关协同服务，用一套现代化物流方案连接中国与全球市场。</p>
+        <div class="actions">
+          <a class="button button-primary" href="#cta">获取物流方案</a>
+          <a class="button button-secondary" href="#services">查看服务能力</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="物流运输概览">
+        <div class="route-map">
+          <span class="node node-start" aria-hidden="true"></span>
+          <span class="node node-end" aria-hidden="true"></span>
+          <div class="shipment-chip">
+            <strong>7-12 天</strong>
+            美欧主线参考时效
+          </div>
+        </div>
+        <div class="metric-row">
+          <div class="metric">
+            <strong>98%</strong>
+            <span>轨迹可视率</span>
+          </div>
+          <div class="metric">
+            <strong>30+</strong>
+            <span>覆盖国家</span>
+          </div>
+          <div class="metric">
+            <strong>24h</strong>
+            <span>异常响应</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="section-head">
+        <h2 id="services-title">一站式跨境物流服务</h2>
+        <p>从发货前规划到签收后追踪，帮助团队减少沟通成本，把更多精力放在销售与品牌增长上。</p>
+      </div>
+
+      <div class="service-grid">
+        <article class="service-card">
+          <div class="icon" aria-hidden="true">海</div>
+          <h3>国际头程运输</h3>
+          <p>整合空运、海运与卡航资源，根据货量、时效和预算匹配更合适的运输组合。</p>
+        </article>
+
+        <article class="service-card">
+          <div class="icon" aria-hidden="true">仓</div>
+          <h3>海外仓配一体</h3>
+          <p>支持入库、分拣、贴标与尾程派送，让订单履约更稳定，旺季也能从容扩容。</p>
+        </article>
+
+        <article class="service-card">
+          <div class="icon" aria-hidden="true">关</div>
+          <h3>清关合规协同</h3>
+          <p>提供资料预审、税费测算与节点提醒，降低清关延误风险，提升跨境链路透明度。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta" id="cta" aria-labelledby="cta-title">
+      <div>
+        <h2 id="cta-title">准备优化你的跨境物流链路？</h2>
+        <p>告诉我们目的地、货物类型和预计发货量，获得一份清晰的运输建议。</p>
+      </div>
+      <a class="button button-primary" href="mailto:hello@example.com">预约方案咨询</a>
+    </section>
+  </main>
+</body>
+</html>
