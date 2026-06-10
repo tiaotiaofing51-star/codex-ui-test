@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>中度优化版 - Figma Demo</title><style>
+:root{--brand:#ff6600;--brand-soft:#fff2e8;--ink:#171717;--muted:#747985;--line:#ebeef3;--bg:#f6f7f9;--container:1180px}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}.topbar svg{width:17px;height:17px}.avatar{width:19px;height:19px;border-radius:50%;background:linear-gradient(180deg,#dce7ff,#b8c9ff);display:inline-block;position:relative}.avatar:before,.avatar:after{content:"";position:absolute;left:50%;transform:translateX(-50%);background:#fff}.avatar:before{top:4px;width:6px;height:6px;border-radius:50%}.avatar:after{bottom:3px;width:12px;height:6px;border-radius:7px 7px 4px 4px}.brand-mark{width:21px;height:21px;border-radius:50%;display:inline-block;background:conic-gradient(from 18deg,#ff6600,#ff9a30 32%,#ffc05f 32%,#ffc05f 47%,#ff6600 47%);box-shadow:inset 0 0 0 3px #fff,0 0 0 1px rgba(255,102,0,.18)}.brand{display:flex;align-items:center;gap:9px;white-space:nowrap}.brand strong{color:#3e3e3e;font-size:11px;margin-right:6px}.chev{width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);display:inline-block}.search-icon{width:32px;height:32px;border:0;border-radius:50%;display:grid;place-items:center;background:#ff6600;color:#fff}.search-icon svg{width:16px;height:16px}.filters .pill,.sort-active{background:#fff0e8;color:#ff6600;border-radius:10px}.grid{display:grid}.title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.price-row strong{color:#ff3145}.meta{display:flex;justify-content:space-between;color:#999}.follow{display:flex;align-items:center;justify-content:center;gap:5px}.follow.active{background:#ff6600;color:#fff}
+body{background:radial-gradient(circle at 12% 0,rgba(255,102,0,.08),transparent 28%),var(--bg);color:var(--ink);font-size:14px;line-height:1.5}.topbar{height:54px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;backdrop-filter:blur(16px)}.topbar-inner,.page{width:min(var(--container),calc(100% - 48px));margin:0 auto}.topbar-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{color:var(--brand);font-size:13px;font-weight:800}.topnav{display:flex;align-items:center;gap:18px;color:#5f6470;font-size:14px}.topnav a{display:inline-flex;align-items:center;gap:7px;padding:8px 10px;border-radius:999px}.topnav a:hover,.topnav .cart{background:#fff4ec;color:#e85d00}.page{padding:22px 0 90px}.hero-panel{background:linear-gradient(135deg,#fff,#fff8f3);border:1px solid #fff;box-shadow:0 18px 55px rgba(20,26,38,.08);border-radius:22px;padding:22px 24px;margin-bottom:18px;display:grid;grid-template-columns:1fr 430px;gap:28px;align-items:center}.hero-title{margin:0 0 6px;font-size:25px;letter-spacing:-.04em}.hero-copy{margin:0;color:var(--muted)}.search-box{height:46px;border:1px solid #e2e5eb;border-radius:999px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding-left:22px;box-shadow:0 10px 28px rgba(20,26,38,.06)}.search-box span{color:#a6abb4}.filters{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-bottom:18px;box-shadow:0 12px 38px rgba(20,26,38,.05)}.filter-row{display:grid;grid-template-columns:90px 1fr;gap:18px;align-items:center;min-height:45px}.filter-row+.filter-row{border-top:1px solid #f2f3f6;padding-top:13px;margin-top:13px}.label{font-weight:800;color:#20242c}.options{display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:#4c5260}.options span{padding:7px 11px;border-radius:999px}.options .pill{font-weight:700}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 18px 52px rgba(20,26,38,.06)}.sortbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}.sortbar .label{margin-right:12px}.sort-active,.sort-item{padding:9px 13px;border-radius:999px;border:1px solid #eef0f4;display:inline-flex;align-items:center;gap:5px;color:#5c6270}.sort-active{border-color:#ffd7bd;font-weight:800}.grid{grid-template-columns:repeat(4,1fr);gap:18px}.card{border:1px solid #eceff4;border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 10px 34px rgba(20,26,38,.055);transition:.18s ease}.card:hover{transform:translateY(-3px);box-shadow:0 18px 50px rgba(20,26,38,.1);border-color:#ffd7bd}.image-area{height:250px;padding:16px;background:linear-gradient(180deg,#fff,#fafbfc);display:flex;align-items:center;justify-content:center}
+.product-visual{width:248px;height:246px;position:relative;margin:auto;background:linear-gradient(180deg,#fff 0%,#fff 78%,#f4f4f4 100%);overflow:hidden}.product-visual:after{content:"";position:absolute;left:8%;right:5%;bottom:2px;height:22px;background:radial-gradient(ellipse,rgba(0,0,0,.13),transparent 68%);filter:blur(4px)}.pack{position:absolute;left:8px;top:5px;width:112px;height:224px;border:1px solid #dedede;background:linear-gradient(90deg,#f6f6f6 0 12%,#fff 12%);overflow:hidden;box-shadow:0 8px 18px rgba(25,31,42,.07)}.pack-logo{position:absolute;top:12px;left:42px;font:700 italic 12px Georgia,serif;color:#9e6430}.eye{position:absolute;left:18px;top:42px;width:94px;height:76px;background:radial-gradient(ellipse at 54% 54%,#2a130b 0 9%,#f8f1e8 10% 18%,transparent 19%),radial-gradient(ellipse at 54% 54%,#fff 0 31%,transparent 32%),linear-gradient(135deg,#452414,#bd7448 46%,#e4b08e 58%,#743b24);clip-path:polygon(0 47%,16% 24%,45% 14%,74% 22%,100% 46%,78% 68%,46% 73%,15% 64%)}.diagonal{position:absolute;left:24px;top:112px;width:100px;height:17px;border:1px solid #eaded1;background:#fff;color:#8b5728;font-size:7px;text-align:center;line-height:16px;transform:rotate(24deg);z-index:3}.seal{position:absolute;left:40px;top:137px;width:21px;height:21px;border-radius:50%;background:radial-gradient(circle,#fff 0 27%,#25a856 28% 55%,#0a7d37 56%);box-shadow:0 0 0 1px #16863b;z-index:4}.pack-title{position:absolute;left:22px;bottom:22px;width:82px;height:76px;display:grid;place-items:center;text-align:center;background:linear-gradient(180deg,#a66a3c,#925527);color:#fff;font:700 12px Georgia,serif}.wand{position:absolute;top:35px;width:10px;height:166px;border-radius:8px;background:#080808;z-index:5}.wand:before{content:"";position:absolute;left:-5px;top:-2px;width:20px;height:78px;background:repeating-linear-gradient(90deg,transparent 0 3px,#111 3px 5px,transparent 5px 8px);clip-path:polygon(50% 0,73% 10%,80% 38%,68% 100%,32% 100%,20% 38%,28% 10%)}.wand-a{left:136px}.wand-b{left:162px}.bowl{position:absolute;left:131px;bottom:29px;width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 50% 45%,#fff 0 44%,#f3f3f3 45% 68%,#ddd 69%);box-shadow:0 9px 18px rgba(0,0,0,.08);z-index:6}.tube{position:absolute;bottom:25px;width:29px;height:110px;background:linear-gradient(90deg,#f2f2f2,#fff 48%,#e9e9e9);border:1px solid #e4e4e4;z-index:4}.tube:before{content:"";position:absolute;left:9px;top:-20px;width:11px;height:23px;background:#fafafa;border:1px solid #e1e1e1}.tube:after{content:"";position:absolute;left:4px;right:4px;bottom:24px;height:34px;background:linear-gradient(90deg,#a96b3b,#fff 42%,#a96b3b 43%)}.tube-a{left:184px}.tube-b{left:213px;width:35px;height:132px}.mini-box{position:absolute;right:8px;top:62px;width:50px;height:72px;background:linear-gradient(180deg,#78491f 0 28%,#fff 28%);border:1px solid #e1e1e1;z-index:3}
+.product-visual{transform:scale(.9)}.card-body{padding:12px 14px 14px}.tag-row{display:flex;gap:6px;margin-bottom:9px}.tag-row span{font-size:12px;color:#df5b00;background:#fff3eb;border:1px solid #ffe0cb;border-radius:999px;padding:3px 7px}.title{margin:0 0 10px;font-size:15px;font-weight:700;color:#222832}.price-row{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:8px}.price-row strong{font-size:18px;line-height:1}.price-row span{font-size:12px;color:#8b92a0}.meta{font-size:12px;margin-bottom:12px}.follow{height:34px;border-radius:10px;background:#f7f8fa;color:#8e95a3;font-size:13px}@media(max-width:1050px){.hero-panel{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:760px){.topbar{height:auto}.topbar-inner{padding:12px 0;flex-direction:column;align-items:flex-start}.topnav{width:100%;overflow:auto;gap:8px}.page{width:min(100% - 28px,var(--container))}.filters,.panel,.hero-panel{border-radius:16px;padding:14px}.filter-row{grid-template-columns:1fr;gap:8px}.options{flex-wrap:nowrap;overflow:auto;padding-bottom:2px}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.sortbar{overflow:auto;padding-bottom:4px}.image-area{height:190px}.product-visual{transform:scale(.68)}.hero-title{font-size:22px}}
+</style></head><body><header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#" aria-label="拉美一站首页"><span class="brand-mark"></span><strong>拉美一站</strong><span>拉美货源，一手直连</span></a>
+    <nav class="topnav" aria-label="用户导航">
+      <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 8.5h14v11H5zM8 8.5V5.8C8 4.8 8.8 4 9.8 4h4.4C15.2 4 16 4.8 16 5.8v2.7M5 12h14"/></svg>货盘主页</a><a class="cart" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h2l2 10h9.5l2-7H7.2M9 20a1.2 1.2 0 1 0 0-2.4A1.2 1.2 0 0 0 9 20Zm8 0a1.2 1.2 0 1 0 0-2.4A1.2 1.2 0 0 0 17 20Z"/></svg>购物车 3</a><a href="#">我的订单 1</a><a href="#"><span class="avatar"></span>159****9443</a>
+    </nav>
+  </div>
+</header><main class="page"><section class="hero-panel"><div><h1 class="hero-title">拉美现货货盘</h1><p class="hero-copy">按国家、类目与库存快速筛选，找到适合墨西哥、巴西、阿根廷市场的美妆个护货源。</p></div><div class="search-box"><span>请输入商品名称/sku</span><button class="search-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m20 20-4.2-4.2m1.4-5.2a6.6 6.6 0 1 1-13.2 0 6.6 6.6 0 0 1 13.2 0Z"/></svg></button></div></section><section class="filters"><div class="filter-row"><div class="label">发货国家</div><div class="options"><span class="pill">不限</span><span>墨西哥</span><span>巴西</span><span>阿根廷</span></div></div><div class="filter-row"><div class="label">商品类别</div><div class="options"><span class="pill">不限</span><span>美妆个护 <i class="chev"></i></span><span>家具用品 <i class="chev"></i></span><span>汽车用品 <i class="chev"></i></span><span>宠物用品 <i class="chev"></i></span><span>玩具 <i class="chev"></i></span><span>五金工具 <i class="chev"></i></span><span>成人保健 <i class="chev"></i></span></div></div></section><section class="panel"><div class="sortbar"><div class="label">商品排行</div><div class="sort-active">综合</div><div class="sort-item">上新时间</div><div class="sort-item">价格</div><div class="sort-item">库存</div><div class="sort-item">发货方式 <i class="chev"></i></div></div><div class="grid"><article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>墨西哥现货</span><span>可一件代发</span></div>
+    <p class="title">Jaysuing染眉膏套装持久防水不脱色</p>
+    <div class="price-row"><strong>MEX$84</strong><span>指导价：MEX$118</span></div>
+    <div class="meta"><span>库存：184</span><span>墨西哥仓</span></div>
+    <div class="follow active"><span>♥</span>已关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>美妆个护</span><span>可一件代发</span></div>
+    <p class="title">Shlight 2合1眉睫染色膏套装</p>
+    <div class="price-row"><strong>MEX$86</strong><span>指导价：MEX$121</span></div>
+    <div class="meta"><span>库存：216</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>48h发货</span><span>可一件代发</span></div>
+    <p class="title">防水眉睫双用染色套装自然棕</p>
+    <div class="price-row"><strong>MEX$79</strong><span>指导价：MEX$109</span></div>
+    <div class="meta"><span>库存：98</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>高库存</span><span>可一件代发</span></div>
+    <p class="title">持久不脱色眉毛睫毛护理组合</p>
+    <div class="price-row"><strong>MEX$92</strong><span>指导价：MEX$129</span></div>
+    <div class="meta"><span>库存：301</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>墨西哥现货</span><span>可一件代发</span></div>
+    <p class="title">Jaysuing眉睫染色膏自然色</p>
+    <div class="price-row"><strong>MEX$84</strong><span>指导价：MEX$118</span></div>
+    <div class="meta"><span>库存：184</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>新品</span><span>可一件代发</span></div>
+    <p class="title">跨境热销眉睫护理染色组合</p>
+    <div class="price-row"><strong>MEX$88</strong><span>指导价：MEX$125</span></div>
+    <div class="meta"><span>库存：142</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>可代发</span><span>可一件代发</span></div>
+    <p class="title">美妆个护防水染眉膏套装</p>
+    <div class="price-row"><strong>MEX$81</strong><span>指导价：MEX$116</span></div>
+    <div class="meta"><span>库存：260</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>稳定供货</span><span>可一件代发</span></div>
+    <p class="title">自然棕眉睫两用染色工具套装</p>
+    <div class="price-row"><strong>MEX$90</strong><span>指导价：MEX$132</span></div>
+    <div class="meta"><span>库存：176</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>墨西哥现货</span><span>可一件代发</span></div>
+    <p class="title">Shlight眉睫自然上色套装</p>
+    <div class="price-row"><strong>MEX$84</strong><span>指导价：MEX$118</span></div>
+    <div class="meta"><span>库存：184</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>热销</span><span>可一件代发</span></div>
+    <p class="title">拉美热销防水染眉护理套装</p>
+    <div class="price-row"><strong>MEX$87</strong><span>指导价：MEX$122</span></div>
+    <div class="meta"><span>库存：205</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>可补货</span><span>可一件代发</span></div>
+    <p class="title">眉睫双效染色膏跨境套装</p>
+    <div class="price-row"><strong>MEX$83</strong><span>指导价：MEX$119</span></div>
+    <div class="meta"><span>库存：154</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article>
+<article class="card">
+  <div class="image-area"><div class="product-visual" aria-hidden="true">
+  <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
+  <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
+</div></div>
+  <div class="card-body">
+    <div class="tag-row"><span>现货</span><span>可一件代发</span></div>
+    <p class="title">自然色持久眉睫上色组合</p>
+    <div class="price-row"><strong>MEX$89</strong><span>指导价：MEX$128</span></div>
+    <div class="meta"><span>库存：237</span><span>墨西哥仓</span></div>
+    <div class="follow"><span>♡</span>关注</div>
+  </div>
+</article></div></section></main></body></html>
