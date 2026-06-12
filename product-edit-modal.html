@@ -187,40 +187,64 @@
 
     .upload-card {
       width: 100%;
-      padding: 16px;
+      padding: 22px;
       border: 1px solid var(--line);
-      border-radius: 12px;
+      border-radius: 14px;
       background: linear-gradient(180deg, #fff 0%, #fbfcff 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72);
     }
-    .upload-top { display: grid; grid-template-columns: minmax(250px, 360px) minmax(0, 1fr); gap: 16px; align-items: stretch; }
-    .upload-drop {
-      min-height: 128px;
+    .upload-top { display: grid; grid-template-columns: minmax(260px, 320px) minmax(0, 1fr); gap: 24px; align-items: start; }
+    .image-main-panel { min-width: 0; display: grid; gap: 14px; }
+    .image-preview {
+      min-height: 254px;
       display: grid;
       place-items: center;
-      padding: 18px;
-      border: 1px dashed #c8d3e1;
-      border-radius: 11px;
-      background: #fbfdff;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fff7ed 0%, #eef6ff 52%, #f8fafc 100%);
+      color: #8a94a6;
+      font-size: 13px;
+      font-weight: 800;
       text-align: center;
     }
-    .upload-icon { width: 42px; height: 42px; margin: 0 auto 10px; display: grid; place-items: center; border-radius: 12px; color: var(--brand); background: var(--brand-soft); font-size: 20px; }
-    .upload-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: var(--control-h); padding: 0 18px; border: 0; border-radius: var(--radius-sm); background: var(--brand); color: #fff; font-weight: 800; box-shadow: 0 8px 18px rgba(255, 102, 0, .18); }
+    .image-preview.color { background: radial-gradient(circle at 66% 22%, rgba(255, 255, 255, .88), transparent 30%), linear-gradient(135deg, #f97316 0%, #22c55e 46%, #3b82f6 100%); color: rgba(255, 255, 255, .92); }
+    .image-main-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid #edf1f6; border-radius: 12px; background: #fbfcfe; }
+    .image-main-name { min-width: 0; overflow: hidden; color: #344054; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+    .upload-drop {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      border: 1px dashed #c8d3e1;
+      border-radius: 13px;
+      background: #fbfdff;
+      text-align: left;
+    }
+    .upload-drop:hover { border-color: rgba(255, 102, 0, .46); background: #fffaf6; }
+    .upload-drop-inner { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .upload-icon { flex: 0 0 auto; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 14px; color: var(--brand); background: var(--brand-soft); font-size: 20px; }
+    .upload-copy { min-width: 0; display: grid; gap: 4px; }
+    .upload-title { color: #344054; font-weight: 900; }
+    .upload-rule { color: var(--muted); font-size: 12px; }
+    .upload-action { justify-self: start; display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: var(--control-h); padding: 0 18px; border: 0; border-radius: var(--radius-sm); background: var(--brand); color: #fff; font-weight: 800; box-shadow: 0 8px 18px rgba(255, 102, 0, .18); }
     .upload-action:hover { background: var(--brand-hover); }
-    .upload-rule { margin-top: 10px; color: var(--muted); font-size: 12px; }
-    .upload-summary { display: grid; grid-template-rows: auto 1fr; gap: 12px; min-width: 0; }
-    .image-count { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; font-size: 14px; font-weight: 800; white-space: nowrap; }
-    .image-limit { color: #ef4444; font-size: 12px; font-weight: 800; }
-    .image-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .image-tile { min-width: 0; display: grid; grid-template-columns: 88px minmax(0, 1fr); overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
-    .thumb { height: 88px; display: grid; place-items: center; background: #f3f6fa; color: #9aa4b2; font-size: 12px; white-space: nowrap; }
+    .upload-tips { display: grid; gap: 8px; margin: 0; padding: 14px 16px; border-radius: 12px; color: #64748b; background: #f8fafc; font-size: 12px; }
+    .upload-tips li { margin-left: 16px; }
+    .upload-summary { min-width: 0; display: grid; gap: 16px; }
+    .image-count { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; padding-bottom: 2px; font-size: 14px; font-weight: 800; }
+    .image-limit { flex: 0 0 auto; color: #ef4444; font-size: 12px; font-weight: 800; }
+    .image-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .image-tile { min-width: 0; display: grid; gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: 13px; background: #fff; transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease; }
+    .image-tile:hover { border-color: #cbd5e1; box-shadow: 0 12px 24px rgba(15, 23, 42, .08); transform: translateY(-1px); }
+    .thumb { min-height: 132px; display: grid; place-items: center; border-radius: 10px; background: #f3f6fa; color: #9aa4b2; font-size: 12px; font-weight: 800; white-space: nowrap; }
     .thumb.color { background: radial-gradient(circle at 70% 20%, #8dd9ff, transparent 34%), linear-gradient(135deg, #39c68a, #3b82f6 58%, #a855f7); }
-    .tile-meta { min-width: 0; display: grid; align-content: center; gap: 8px; padding: 10px 10px 10px 12px; border-left: 1px solid var(--line); }
-    .tile-name { overflow: hidden; color: #344054; font-size: 12px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
-    .tile-tags { display: flex; gap: 6px; align-items: center; min-width: 0; }
+    .tile-meta { min-width: 0; display: grid; gap: 10px; }
+    .tile-name { overflow: hidden; color: #344054; font-size: 13px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+    .tile-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-width: 0; }
     .tag { height: 22px; padding: 0 8px; display: inline-flex; align-items: center; border-radius: 999px; color: #667085; background: #f2f4f7; font-size: 12px; font-weight: 700; white-space: nowrap; }
     .tag-main { color: var(--brand); background: var(--brand-soft); }
-    .tile-actions { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .link-btn { border: 0; background: transparent; color: var(--blue); font-weight: 700; white-space: nowrap; }
+    .tile-actions { display: flex; align-items: center; gap: 10px; min-width: 0; padding-top: 2px; }
+    .link-btn { padding: 0; border: 0; background: transparent; color: var(--blue); font-weight: 700; white-space: nowrap; }
 
     .table-wrap { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
     .spec-table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; }
@@ -266,6 +290,7 @@
       .admin-shell { grid-template-columns: 220px minmax(0, 1fr); }
       .field, .span-6, .span-4, .span-8 { grid-column: span 12; }
       .upload-top { grid-template-columns: 1fr; }
+      .image-preview { min-height: 220px; }
       .image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .table-wrap { overflow-x: auto; }
       .spec-table { min-width: 1080px; }
@@ -277,7 +302,10 @@
       .field { grid-template-columns: 1fr; gap: 8px; }
       .label { justify-content: flex-start; min-height: auto; }
       .select-row, .inline-row.three, .inline-row.unit { grid-template-columns: 1fr; }
+      .upload-card { padding: 16px; }
+      .image-main-meta, .image-count { align-items: flex-start; flex-direction: column; }
       .image-grid { grid-template-columns: 1fr; }
+      .upload-drop-inner { align-items: flex-start; }
       .section-head, .modal-footer { align-items: flex-start; flex-direction: column; }
       .footer-actions { width: 100%; justify-content: flex-end; flex-wrap: wrap; }
     }
@@ -333,15 +361,29 @@
                   <label class="label"><span class="required">*</span>产品图片</label>
                   <div class="upload-card">
                     <div class="upload-top">
-                      <div class="upload-drop">
-                        <div>
-                          <div class="upload-icon">☁</div>
+                      <div class="image-main-panel">
+                        <div class="image-preview color">主图预览</div>
+                        <div class="image-main-meta">
+                          <span class="image-main-name">主图-白底款.jpg</span>
+                          <span class="tag tag-main">当前主图</span>
+                        </div>
+                        <div class="upload-drop">
+                          <div class="upload-drop-inner">
+                            <div class="upload-icon">☁</div>
+                            <div class="upload-copy">
+                              <div class="upload-title">拖拽或选择图片上传</div>
+                              <div class="upload-rule">最少 1 张，最多 7 张；建议 1:1 白底主图</div>
+                            </div>
+                          </div>
                           <button class="upload-action" type="button">选择图片</button>
-                          <div class="upload-rule">最少 1 张，最多 7 张；建议 1:1 白底主图</div>
                         </div>
                       </div>
                       <div class="upload-summary">
                         <div class="image-count"><span>已上传图片（8/7）</span><span class="image-limit">超出 1 张，请删除后保存</span></div>
+                        <ul class="upload-tips">
+                          <li>主图单独预览，便于快速判断首图效果。</li>
+                          <li>图片卡片保持更大间距，减少拥挤和误触。</li>
+                        </ul>
                         <div class="image-grid">
                           <div class="image-tile"><div class="thumb">图片加载失败</div><div class="tile-meta"><div class="tile-name">主图-白底款.jpg</div><div class="tile-tags"><span class="tag tag-main">主图</span><span class="tag">1:1</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div></div>
                           <div class="image-tile"><div class="thumb color"></div><div class="tile-meta"><div class="tile-name">细节展示-包装.jpg</div><div class="tile-tags"><span class="tag">详情</span><span class="tag">800px</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div></div>
