@@ -71,18 +71,53 @@ body{background:radial-gradient(circle at 8% -8%,rgba(255,102,0,.16),transparent
 .panel{border-radius:22px;padding:14px}
 .image-area{height:202px}
 }
+/* Mature B2B layout cleanup */
+body{background:linear-gradient(180deg,#fbfaf7 0,#f6f7f9 310px,#f5f6f8 100%);color:#171a21}
+.topbar{height:64px;background:rgba(255,255,255,.94);border-bottom:1px solid #e6e9ef;box-shadow:0 10px 28px rgba(25,31,42,.05);backdrop-filter:blur(18px)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:28px}
+.brand-mark{width:24px;height:24px;box-shadow:inset 0 0 0 4px #fff,0 0 0 1px rgba(255,102,0,.16)}
+.brand span:last-child{color:#6d7480;font-weight:700}
+.topnav{gap:10px;white-space:nowrap}
+.topnav a{padding:8px 10px;border-radius:999px;color:#5d6471}
+.topnav a:hover,.topnav .cart{border-color:#f3d6c4;background:#fff7f1;box-shadow:none;color:#e85d00}
+.page{padding:28px 0 88px}
+.hero-panel{display:block;min-height:auto;margin-bottom:18px;padding:34px 38px;border:1px solid #ece7de;border-radius:26px;background:linear-gradient(135deg,#fff 0,#fffdf8 62%,#f7f2e9 100%);box-shadow:0 18px 46px rgba(22,29,40,.06);overflow:hidden}
+.hero-panel:before,.hero-panel:after{display:none}
+.hero-kicker{margin-bottom:12px;border-color:#eadfce;background:#fff;color:#9b663d;letter-spacing:.06em}
+.hero-title{font-size:36px;color:#171a21}
+.hero-copy{max-width:720px;color:#606875;font-size:15px}
+.filters{margin-bottom:18px;padding:18px;border:1px solid #e6e9ef;border-radius:22px;background:rgba(255,255,255,.96);box-shadow:0 16px 42px rgba(24,30,42,.055)}
+.filter-primary{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(360px,1.2fr);gap:14px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #eef1f5}
+.field{min-width:0}
+.field-label{margin-bottom:8px;color:#202633;font-size:13px;font-weight:850}
+.country-strip{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.country-pill,.options span,.sort-active,.sort-item{height:36px;display:inline-flex;align-items:center;gap:6px;padding:0 13px;border:1px solid #e7ebf1;border-radius:12px;background:#fff;color:#4f5663;font-size:13px;font-weight:760;box-shadow:none}
+.country-pill.active,.options .pill,.sort-active{border-color:#f2d1bc;background:#fff8f3;color:#e85d00;box-shadow:none}
+.search-box{height:42px;width:100%;border:1px solid #dde2ea;border-radius:14px;background:#fff;padding-left:15px;box-shadow:none}
+.search-box span{color:#9aa2ad;font-size:13px}
+.search-icon{width:34px;height:34px;margin-right:4px;background:#f06412;box-shadow:none;cursor:pointer}
+.filter-row{display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:start;min-height:auto}
+.filter-row+.filter-row{margin-top:12px;padding-top:12px;border-top:1px solid #f0f2f5}
+.label{padding-top:8px;color:#202633;font-size:13px;font-weight:850}
+.options{gap:8px}
+.options span:hover,.country-pill:hover{border-color:#f2d1bc;color:#e85d00}
+.panel{border-radius:22px;padding:18px;background:#fff;box-shadow:0 18px 48px rgba(22,29,40,.06)}
+.card{border-radius:20px;background:#fff;box-shadow:0 12px 34px rgba(18,25,38,.06)}
+.card:hover{border-color:#f0d1bd;box-shadow:0 20px 48px rgba(30,35,48,.11)}
+.tag-row span{border-color:#eee4dc;background:#fffaf6;color:#9a5c34}
+.follow.active,.follow:hover{background:#f06412;box-shadow:0 10px 20px rgba(240,100,18,.18)}
+@media(max-width:1120px){.topbar{height:auto}.topbar-inner{padding:12px 0;flex-wrap:wrap}.topnav{width:100%;overflow:auto}.filter-primary{grid-template-columns:1fr}.hero-panel{padding:30px}}
+@media(max-width:760px){.topbar-inner{align-items:flex-start}.page{width:min(100% - 28px,var(--container));padding-top:18px}.topnav{gap:8px}.hero-panel{padding:22px;border-radius:20px}.hero-title{font-size:28px}.filters,.panel{padding:14px;border-radius:18px}.filter-row{grid-template-columns:1fr;gap:8px}.label{padding-top:0}.options,.country-strip{flex-wrap:wrap;overflow:visible}.country-pill,.options span{height:34px}.search-box{height:42px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.image-area{height:190px}.product-visual{transform:scale(.68)}}
+@media(max-width:520px){.topbar-inner,.page{width:min(100% - 24px,var(--container))}.brand span:last-child{display:none}.topnav a{font-size:12px;padding:7px 9px}.grid{grid-template-columns:1fr}.filter-primary{gap:12px}.search-box span{max-width:210px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hero-title{font-size:25px}}
+
 </style></head><body><header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="#" aria-label="拉美一站首页"><span class="brand-mark"></span><strong>拉美一站</strong><span>拉美货源，一手直连</span></a>
-    <div class="topbar-tools" aria-label="国家与商品搜索">
-      <div class="country-strip"><span class="country-label">发货国家</span><span class="country-pill active">不限</span><span class="country-pill">墨西哥</span><span class="country-pill">巴西</span><span class="country-pill">阿根廷</span></div>
-      <div class="search-box"><span>请输入商品名称/sku</span><button class="search-icon" aria-label="搜索商品"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m20 20-4.2-4.2m1.4-5.2a6.6 6.6 0 1 1-13.2 0 6.6 6.6 0 0 1 13.2 0Z"/></svg></button></div>
-    </div>
     <nav class="topnav" aria-label="用户导航">
       <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 8.5h14v11H5zM8 8.5V5.8C8 4.8 8.8 4 9.8 4h4.4C15.2 4 16 4.8 16 5.8v2.7M5 12h14"/></svg>货盘主页</a><a class="cart" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h2l2 10h9.5l2-7H7.2M9 20a1.2 1.2 0 1 0 0-2.4A1.2 1.2 0 0 0 9 20Zm8 0a1.2 1.2 0 1 0 0-2.4A1.2 1.2 0 0 0 17 20Z"/></svg>购物车 3</a><a href="#">我的订单 1</a><a href="#"><span class="avatar"></span>159****9443</a>
     </nav>
   </div>
-</header><main class="page"><section class="hero-panel"><div><span class="hero-kicker">跨境现货精选</span><h1 class="hero-title">拉美现货货盘</h1><p class="hero-copy">按国家、类目与库存快速筛选，找到适合墨西哥、巴西、阿根廷市场的美妆个护货源。</p></div><div class="hero-stats"><span><strong>4</strong>国家覆盖</span><span><strong>24h</strong>快速发货</span><span><strong>12</strong>精选货盘</span></div></section><section class="filters"><div class="filter-row"><div class="label">商品类别</div><div class="options"><span class="pill">不限</span><span>美妆个护 <i class="chev"></i></span><span>家具用品 <i class="chev"></i></span><span>汽车用品 <i class="chev"></i></span><span>宠物用品 <i class="chev"></i></span><span>玩具 <i class="chev"></i></span><span>五金工具 <i class="chev"></i></span><span>成人保健 <i class="chev"></i></span></div></div></section><section class="panel"><div class="sortbar"><div class="label">商品排行</div><div class="sort-active">综合</div><div class="sort-item">上新时间</div><div class="sort-item">价格</div><div class="sort-item">库存</div><div class="sort-item">发货方式 <i class="chev"></i></div></div><div class="grid"><article class="card">
+</header><main class="page"><section class="hero-panel"><div><span class="hero-kicker">跨境现货精选</span><h1 class="hero-title">拉美现货货盘</h1><p class="hero-copy">按国家、类目、库存和发货方式快速筛选，找到适合墨西哥、巴西、阿根廷市场的美妆个护货源。</p></div></section><section class="filters" aria-label="货盘筛选工具栏"><div class="filter-primary"><div class="field country-field"><div class="field-label">发货国家</div><div class="country-strip"><span class="country-pill active">不限</span><span class="country-pill">墨西哥</span><span class="country-pill">巴西</span><span class="country-pill">阿根廷</span></div></div><div class="field search-field"><div class="field-label">搜索货盘</div><div class="search-box"><span>请输入商品名称 / SKU / 供应商</span><button class="search-icon" aria-label="搜索商品"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m20 20-4.2-4.2m1.4-5.2a6.6 6.6 0 1 1-13.2 0 6.6 6.6 0 0 1 13.2 0Z"/></svg></button></div></div></div><div class="filter-row"><div class="label">商品类别</div><div class="options"><span class="pill">不限</span><span>美妆个护 <i class="chev"></i></span><span>家具用品 <i class="chev"></i></span><span>汽车用品 <i class="chev"></i></span><span>宠物用品 <i class="chev"></i></span><span>玩具 <i class="chev"></i></span><span>五金工具 <i class="chev"></i></span><span>成人保健 <i class="chev"></i></span></div></div><div class="filter-row"><div class="label">发货方式</div><div class="options"><span class="pill">全部</span><span>墨西哥仓</span><span>巴西仓</span><span>48h 发货</span><span>一件代发</span></div></div><div class="filter-row"><div class="label">排序方式</div><div class="options sort-options"><span class="pill">综合</span><span>上新时间</span><span>价格</span><span>库存</span></div></div></section><section class="panel"><div class="grid"><article class="card">
   <div class="image-area"><div class="product-visual" aria-hidden="true">
   <div class="pack"><span class="pack-logo">ShLIGHT</span><span class="eye"></span><span class="diagonal">EASY & SAFE TO USE</span><span class="seal"></span><span class="pack-title">BROW & LASH</span></div>
   <span class="wand wand-a"></span><span class="wand wand-b"></span><span class="bowl"></span><span class="tube tube-a"></span><span class="tube tube-b"></span><span class="mini-box"></span>
