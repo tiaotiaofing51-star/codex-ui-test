@@ -19,7 +19,9 @@
       --panel-soft: #f8fafc;
       --blue: #409eff;
       --radius: 10px;
-      --shadow: 0 24px 72px rgba(15, 23, 42, 0.22);
+      --radius-sm: 8px;
+      --control-h: 42px;
+      --shadow: 0 28px 84px rgba(15, 23, 42, 0.24);
     }
 
     * { box-sizing: border-box; }
@@ -78,12 +80,13 @@
     }
 
     .product-modal {
-      width: min(1680px, calc(100vw - 56px));
+      width: min(1580px, calc(100vw - 56px));
       max-height: calc(100vh - 56px);
       display: grid;
       grid-template-rows: auto minmax(0, 1fr) auto;
       overflow: hidden;
-      border-radius: 12px;
+      border: 1px solid rgba(226, 232, 240, 0.88);
+      border-radius: 14px;
       background: var(--panel);
       box-shadow: var(--shadow);
     }
@@ -92,9 +95,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      min-height: 72px;
-      padding: 0 28px;
+      gap: 20px;
+      min-height: 78px;
+      padding: 0 30px;
       border-bottom: 1px solid var(--line);
       background: linear-gradient(180deg, #fff 0%, #fbfcfe 100%);
     }
@@ -107,11 +110,11 @@
     .modal-body {
       min-height: 0;
       overflow: auto;
-      padding: 22px 28px 28px;
-      background: #f7f9fc;
+      padding: 24px 30px 30px;
+      background: #f6f8fb;
     }
 
-    .form-flow { display: grid; gap: 18px; }
+    .form-flow { display: grid; gap: 20px; }
     .form-section {
       overflow: hidden;
       border: 1px solid var(--line);
@@ -120,14 +123,16 @@
       box-shadow: 0 10px 26px rgba(15, 23, 42, 0.035);
     }
 
+    .form-section + .form-section { margin-top: 2px; }
+
     .section-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      padding: 18px 22px;
+      padding: 16px 22px;
       border-bottom: 1px solid var(--line);
-      background: #fcfdff;
+      background: linear-gradient(180deg, #fcfdff 0%, #f8fafc 100%);
     }
 
     .section-title { display: flex; align-items: center; gap: 10px; min-width: 0; }
@@ -146,14 +151,14 @@
     .section-desc { color: var(--muted); font-size: 12px; white-space: nowrap; }
 
     .section-body { padding: 22px; }
-    .form-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px 20px; }
-    .field { display: grid; grid-template-columns: 132px minmax(0, 1fr); align-items: start; gap: 14px; }
+    .form-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px 22px; }
+    .field { display: grid; grid-template-columns: 138px minmax(0, 1fr); align-items: start; gap: 14px; }
     .span-12 { grid-column: span 12; }
     .span-8 { grid-column: span 8; }
     .span-6 { grid-column: span 6; }
     .span-4 { grid-column: span 4; }
 
-    .label { min-height: 40px; display: flex; align-items: center; justify-content: flex-end; color: #687386; font-weight: 700; }
+    .label { min-height: var(--control-h); display: flex; align-items: center; justify-content: flex-end; color: #667085; font-weight: 700; }
     .required { color: #ff3b30; margin-right: 4px; }
     .control-group { display: grid; gap: 8px; }
     .help { color: var(--muted); font-size: 12px; }
@@ -162,9 +167,9 @@
     .select,
     .textarea {
       width: 100%;
-      min-height: 40px;
+      min-height: var(--control-h);
       border: 1px solid var(--line-strong);
-      border-radius: 7px;
+      border-radius: var(--radius-sm);
       background: #fff;
       color: #344054;
       outline: 0;
@@ -181,34 +186,52 @@
     .inline-row.unit { grid-template-columns: minmax(0, 1fr) 190px; }
 
     .upload-card {
-      max-width: 900px;
-      padding: 18px;
-      border: 1px dashed #cfd8e6;
+      width: 100%;
+      padding: 16px;
+      border: 1px solid var(--line);
       border-radius: 12px;
       background: linear-gradient(180deg, #fff 0%, #fbfcff 100%);
     }
-    .upload-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-    .upload-action { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 18px; border: 0; border-radius: 8px; background: var(--brand); color: #fff; font-weight: 800; }
+    .upload-top { display: grid; grid-template-columns: minmax(250px, 360px) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+    .upload-drop {
+      min-height: 128px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      border: 1px dashed #c8d3e1;
+      border-radius: 11px;
+      background: #fbfdff;
+      text-align: center;
+    }
+    .upload-icon { width: 42px; height: 42px; margin: 0 auto 10px; display: grid; place-items: center; border-radius: 12px; color: var(--brand); background: var(--brand-soft); font-size: 20px; }
+    .upload-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: var(--control-h); padding: 0 18px; border: 0; border-radius: var(--radius-sm); background: var(--brand); color: #fff; font-weight: 800; box-shadow: 0 8px 18px rgba(255, 102, 0, .18); }
     .upload-action:hover { background: var(--brand-hover); }
-    .upload-rule { color: var(--muted); font-size: 12px; }
-    .image-count { margin: 18px 0 12px; font-size: 15px; font-weight: 800; }
-    .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 14px; }
-    .image-tile { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
-    .thumb { height: 118px; display: grid; place-items: center; background: #f3f6fa; color: #9aa4b2; }
+    .upload-rule { margin-top: 10px; color: var(--muted); font-size: 12px; }
+    .upload-summary { display: grid; grid-template-rows: auto 1fr; gap: 12px; min-width: 0; }
+    .image-count { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; font-size: 14px; font-weight: 800; white-space: nowrap; }
+    .image-limit { color: #ef4444; font-size: 12px; font-weight: 800; }
+    .image-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .image-tile { min-width: 0; display: grid; grid-template-columns: 88px minmax(0, 1fr); overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .thumb { height: 88px; display: grid; place-items: center; background: #f3f6fa; color: #9aa4b2; font-size: 12px; white-space: nowrap; }
     .thumb.color { background: radial-gradient(circle at 70% 20%, #8dd9ff, transparent 34%), linear-gradient(135deg, #39c68a, #3b82f6 58%, #a855f7); }
-    .tile-actions { display: flex; justify-content: center; gap: 8px; padding: 10px; border-top: 1px solid var(--line); }
-    .link-btn { border: 0; background: transparent; color: var(--blue); font-weight: 700; }
+    .tile-meta { min-width: 0; display: grid; align-content: center; gap: 8px; padding: 10px 10px 10px 12px; border-left: 1px solid var(--line); }
+    .tile-name { overflow: hidden; color: #344054; font-size: 12px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+    .tile-tags { display: flex; gap: 6px; align-items: center; min-width: 0; }
+    .tag { height: 22px; padding: 0 8px; display: inline-flex; align-items: center; border-radius: 999px; color: #667085; background: #f2f4f7; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .tag-main { color: var(--brand); background: var(--brand-soft); }
+    .tile-actions { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .link-btn { border: 0; background: transparent; color: var(--blue); font-weight: 700; white-space: nowrap; }
 
-    .spec-table { width: 100%; border-collapse: collapse; min-width: 1120px; }
-    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
-    .spec-table th { padding: 13px 12px; color: #6b7280; font-weight: 800; text-align: left; background: #f8fafc; border-bottom: 1px solid var(--line); }
-    .spec-table td { padding: 12px; vertical-align: top; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .spec-table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; }
+    .spec-table th { padding: 12px 10px; color: #667085; font-size: 12px; font-weight: 800; text-align: left; background: #f8fafc; border-bottom: 1px solid var(--line); }
+    .spec-table td { padding: 12px 10px; vertical-align: top; border-bottom: 1px solid var(--line); }
     .spec-table tr:last-child td { border-bottom: 0; }
-    .table-input { width: 100%; min-width: 110px; height: 38px; padding: 0 10px; border: 1px solid var(--line-strong); border-radius: 7px; color: #344054; outline: 0; }
-    .price-rule { display: grid; gap: 8px; min-width: 440px; }
-    .price-line { display: grid; grid-template-columns: 58px 120px 18px 120px 120px 96px 34px; gap: 8px; align-items: center; }
-    .price-line span { color: #687386; font-weight: 700; }
-    .radio-row, .checkbox-row { min-height: 40px; display: flex; align-items: center; flex-wrap: wrap; gap: 22px; }
+    .table-input { width: 100%; min-width: 0; height: 38px; padding: 0 10px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); color: #344054; outline: 0; background: #fff; }
+    .price-rule { display: grid; gap: 8px; min-width: 0; }
+    .price-line { display: grid; grid-template-columns: 52px minmax(50px, 1fr) 12px minmax(62px, 1fr) minmax(62px, 1fr) 74px 28px; gap: 6px; align-items: center; padding: 8px; border: 1px solid #edf1f6; border-radius: 8px; background: #fbfcfe; }
+    .price-line span { color: #687386; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .radio-row, .checkbox-row { min-height: var(--control-h); display: flex; align-items: center; flex-wrap: wrap; gap: 14px 22px; }
     .radio-row label, .checkbox-row label { display: inline-flex; align-items: center; gap: 8px; color: #5f6b7c; font-weight: 700; }
     input[type="radio"], input[type="checkbox"] { accent-color: var(--brand); width: 16px; height: 16px; }
     .add-spec { margin-top: 14px; height: 40px; padding: 0 16px; border: 1px solid rgba(255, 102, 0, .32); border-radius: 8px; color: var(--brand); background: var(--brand-soft); font-weight: 800; }
@@ -219,18 +242,20 @@
     .editor-content { min-height: 210px; padding: 18px; color: #1f2937; line-height: 1.8; }
 
     .modal-footer {
+      position: relative;
+      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      padding: 16px 28px;
+      padding: 16px 30px;
       border-top: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: 0 -12px 28px rgba(15, 23, 42, 0.06);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 -14px 30px rgba(15, 23, 42, 0.08);
     }
     .footer-tip { color: var(--muted); font-size: 12px; }
     .footer-actions { display: flex; align-items: center; gap: 10px; }
-    .btn { height: 42px; min-width: 96px; padding: 0 18px; border-radius: 8px; font-weight: 800; }
+    .btn { height: var(--control-h); min-width: 98px; padding: 0 18px; border-radius: var(--radius-sm); font-weight: 800; }
     .btn-plain { border: 1px solid var(--line-strong); background: #fff; color: #475467; }
     .btn-plain:hover { background: #f8fafc; }
     .btn-draft { border: 1px solid rgba(255, 102, 0, .32); background: var(--brand-soft); color: var(--brand); }
@@ -240,6 +265,10 @@
     @media (max-width: 1180px) {
       .admin-shell { grid-template-columns: 220px minmax(0, 1fr); }
       .field, .span-6, .span-4, .span-8 { grid-column: span 12; }
+      .upload-top { grid-template-columns: 1fr; }
+      .image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .table-wrap { overflow-x: auto; }
+      .spec-table { min-width: 1080px; }
     }
     @media (max-width: 760px) {
       .modal-backdrop { padding: 12px; }
@@ -248,6 +277,7 @@
       .field { grid-template-columns: 1fr; gap: 8px; }
       .label { justify-content: flex-start; min-height: auto; }
       .select-row, .inline-row.three, .inline-row.unit { grid-template-columns: 1fr; }
+      .image-grid { grid-template-columns: 1fr; }
       .section-head, .modal-footer { align-items: flex-start; flex-direction: column; }
       .footer-actions { width: 100%; justify-content: flex-end; flex-wrap: wrap; }
     }
@@ -303,15 +333,22 @@
                   <label class="label"><span class="required">*</span>产品图片</label>
                   <div class="upload-card">
                     <div class="upload-top">
-                      <button class="upload-action" type="button">☁ 选择图片</button>
-                      <span class="upload-rule">最少1张，最多7张；建议使用 1:1 白底主图，支持拖拽调整顺序。</span>
-                    </div>
-                    <div class="image-count">已选择图片（8/7）</div>
-                    <div class="image-grid">
-                      <div class="image-tile"><div class="thumb">图片加载失败</div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div>
-                      <div class="image-tile"><div class="thumb color"></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div>
-                      <div class="image-tile"><div class="thumb">图片加载失败</div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div>
-                      <div class="image-tile"><div class="thumb color"></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div>
+                      <div class="upload-drop">
+                        <div>
+                          <div class="upload-icon">☁</div>
+                          <button class="upload-action" type="button">选择图片</button>
+                          <div class="upload-rule">最少 1 张，最多 7 张；建议 1:1 白底主图</div>
+                        </div>
+                      </div>
+                      <div class="upload-summary">
+                        <div class="image-count"><span>已上传图片（8/7）</span><span class="image-limit">超出 1 张，请删除后保存</span></div>
+                        <div class="image-grid">
+                          <div class="image-tile"><div class="thumb">图片加载失败</div><div class="tile-meta"><div class="tile-name">主图-白底款.jpg</div><div class="tile-tags"><span class="tag tag-main">主图</span><span class="tag">1:1</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div></div>
+                          <div class="image-tile"><div class="thumb color"></div><div class="tile-meta"><div class="tile-name">细节展示-包装.jpg</div><div class="tile-tags"><span class="tag">详情</span><span class="tag">800px</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div></div>
+                          <div class="image-tile"><div class="thumb">图片加载失败</div><div class="tile-meta"><div class="tile-name">使用场景图.jpg</div><div class="tile-tags"><span class="tag">场景</span><span class="tag">待替换</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div></div>
+                          <div class="image-tile"><div class="thumb color"></div><div class="tile-meta"><div class="tile-name">尺寸说明图.jpg</div><div class="tile-tags"><span class="tag">说明</span><span class="tag">已上传</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -339,6 +376,7 @@
                   <div class="control-group">
                     <div class="table-wrap">
                       <table class="spec-table">
+                        <colgroup><col style="width: 11%" /><col style="width: 8%" /><col style="width: 8%" /><col style="width: 12%" /><col style="width: 16%" /><col style="width: 38%" /><col style="width: 7%" /></colgroup>
                         <thead><tr><th>规格型号</th><th>成本</th><th>币种</th><th>SKU编码</th><th>报价规则</th><th>对外报价</th><th>操作</th></tr></thead>
                         <tbody>
                           <tr>
