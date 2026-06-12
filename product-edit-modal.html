@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>商品编辑弹窗 UI 优化</title>
+  <style>
+    :root {
+      --brand: #ff6600;
+      --brand-hover: #e85d00;
+      --brand-soft: #fff4ec;
+      --brand-ring: rgba(255, 102, 0, 0.12);
+      --text: #1f2937;
+      --text-2: #475467;
+      --muted: #7b8494;
+      --line: #e6ebf2;
+      --line-strong: #d8e0eb;
+      --bg: #f4f6fa;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --blue: #2f80ed;
+      --radius: 10px;
+      --shadow: 0 24px 72px rgba(15, 23, 42, 0.22);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .admin-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 22px;
+      padding: 22px;
+    }
+
+    .sidebar,
+    .workspace {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .sidebar { padding: 26px 0; }
+    .side-title { margin: 0 26px 22px; font-size: 16px; font-weight: 700; }
+    .side-list { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+    .side-list li { padding: 11px 26px; color: #3f4652; }
+    .side-list .sub { padding-left: 48px; color: #5c6472; }
+    .side-list .active { color: var(--brand); background: var(--brand-soft); font-weight: 700; border-right: 3px solid var(--brand); }
+
+    .workspace { padding: 26px; overflow: hidden; }
+    .toolbar { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+    .search-card { flex: 1; height: 74px; border-radius: 12px; background: #f7f9fc; border: 1px solid var(--line); }
+    .reset-btn { align-self: center; height: 42px; padding: 0 18px; border: 1px solid var(--line-strong); border-radius: 8px; color: #606a7a; background: #fff; }
+    .table-mask { height: 680px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(#fff, #f7f9fc); }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      background: rgba(15, 23, 42, 0.52);
+    }
+
+    .product-modal {
+      width: min(1680px, calc(100vw - 56px));
+      max-height: calc(100vh - 56px);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      overflow: hidden;
+      border-radius: 14px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 76px;
+      padding: 0 30px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .modal-title h1 { margin: 0; font-size: 20px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; }
+    .modal-title p { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+    .close-btn { width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: #667085; font-size: 24px; line-height: 1; }
+    .close-btn:hover { background: #f3f6fa; color: #111827; }
+
+    .modal-body {
+      min-height: 0;
+      overflow: auto;
+      padding: 0;
+      background: #f5f7fb;
+    }
+
+    .modal-content {
+      display: grid;
+      grid-template-columns: 192px minmax(0, 1fr);
+      gap: 20px;
+      padding: 22px 28px 28px;
+    }
+
+    .section-nav {
+      position: sticky;
+      top: 22px;
+      align-self: start;
+      display: grid;
+      gap: 8px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+    }
+
+    .section-nav-title {
+      padding: 2px 8px 8px;
+      color: #344054;
+      font-size: 13px;
+      font-weight: 800;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-nav a {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 34px;
+      padding: 0 8px;
+      border-radius: 8px;
+      color: #5f6b7c;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .section-nav a:first-of-type,
+    .section-nav a:hover {
+      color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    .nav-dot {
+      width: 18px;
+      height: 18px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #eef2f7;
+      color: #667085;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .section-nav a:first-of-type .nav-dot,
+    .section-nav a:hover .nav-dot {
+      color: #fff;
+      background: var(--brand);
+    }
+
+    .form-flow { min-width: 0; display: grid; gap: 16px; }
+    .form-section {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.035);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 58px;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff 0%, #fcfdff 100%);
+    }
+
+    .section-title { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .section-index {
+      width: 24px;
+      height: 24px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--brand);
+      background: var(--brand-soft);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .section-title h2 { margin: 0; font-size: 15px; font-weight: 800; }
+    .section-desc { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+    .section-body { padding: 20px 22px 22px; }
+    .sub-block + .sub-block { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .sub-block-title { display: flex; align-items: center; gap: 8px; margin: 0 0 14px 146px; color: #344054; font-weight: 800; }
+    .sub-block-title::before { content: ""; width: 3px; height: 14px; border-radius: 99px; background: var(--brand); }
+
+    .form-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px 20px; }
+    .field { display: grid; grid-template-columns: 126px minmax(0, 1fr); align-items: start; gap: 14px; }
+    .span-12 { grid-column: span 12; }
+    .span-8 { grid-column: span 8; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+
+    .label {
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      color: #667085;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .required { color: #ff3b30; margin-right: 4px; }
+    .control-group { display: grid; gap: 8px; min-width: 0; }
+    .help { color: var(--muted); font-size: 12px; }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      background: #fff;
+      color: #344054;
+      outline: 0;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .input, .select { padding: 0 12px; }
+    .textarea { min-height: 96px; height: auto; padding: 12px 14px; resize: vertical; }
+    .input::placeholder, .textarea::placeholder { color: #aeb7c5; }
+    .input:focus, .select:focus, .textarea:focus { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-ring); }
+
+    .select-row, .inline-row { display: grid; gap: 10px; min-width: 0; }
+    .select-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .inline-row.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .inline-row.unit { grid-template-columns: minmax(0, 1fr) 176px; }
+
+    .upload-card {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+    .upload-top {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #fafcff;
+    }
+    .upload-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .upload-action:hover { background: var(--brand-hover); }
+    .upload-rule { min-width: 0; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .image-count {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #475467;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .image-tile {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+    }
+    .thumb {
+      height: 136px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background:
+        linear-gradient(45deg, #f8fafc 25%, transparent 25%),
+        linear-gradient(-45deg, #f8fafc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f8fafc 75%),
+        linear-gradient(-45deg, transparent 75%, #f8fafc 75%);
+      background-color: #eef2f7;
+      background-size: 18px 18px;
+      background-position: 0 0, 0 9px, 9px -9px, -9px 0;
+      color: #8a95a6;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .thumb.color { background: radial-gradient(circle at 70% 18%, #8dd9ff, transparent 34%), linear-gradient(135deg, #39c68a, #3b82f6 58%, #a855f7); }
+    .main-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: var(--brand);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 22px;
+    }
+    .tile-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 10px 0;
+      color: #667085;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .tile-actions { display: flex; justify-content: flex-end; gap: 10px; padding: 8px 10px 10px; white-space: nowrap; }
+    .link-btn { border: 0; background: transparent; color: var(--blue); font-weight: 700; white-space: nowrap; }
+
+    .spec-board {
+      display: grid;
+      gap: 14px;
+    }
+    .spec-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .spec-card-head {
+      display: grid;
+      grid-template-columns: minmax(120px, 1.2fr) minmax(96px, .8fr) 104px minmax(130px, 1fr) minmax(190px, 1.3fr) 72px;
+      gap: 10px;
+      align-items: end;
+      padding: 14px;
+      background: #fbfcfe;
+      border-bottom: 1px solid var(--line);
+    }
+    .spec-field { display: grid; gap: 6px; min-width: 0; }
+    .spec-label { color: #667085; font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .table-input { width: 100%; height: 38px; min-width: 0; padding: 0 10px; border: 1px solid var(--line-strong); border-radius: 8px; color: #344054; outline: 0; background: #fff; }
+    .table-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-ring); }
+    .quote-rule { min-height: 38px; display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; }
+    .quote-rule label { display: inline-flex; align-items: center; gap: 6px; color: #5f6b7c; font-weight: 700; white-space: nowrap; }
+    .spec-delete { height: 38px; align-self: end; }
+    .tier-panel { padding: 14px; }
+    .tier-head,
+    .tier-row {
+      display: grid;
+      grid-template-columns: 86px minmax(100px, 1fr) 24px minmax(100px, 1fr) minmax(112px, 1fr) 96px 50px;
+      gap: 8px;
+      align-items: center;
+    }
+    .tier-head { margin-bottom: 8px; color: #667085; font-size: 12px; font-weight: 800; }
+    .tier-list { display: grid; gap: 8px; }
+    .tier-name { color: #475467; font-weight: 800; white-space: nowrap; }
+    .tier-dash { text-align: center; color: #98a2b3; }
+    .add-tier { justify-self: start; margin-top: 10px; color: #667085; }
+    .radio-row, .checkbox-row { min-height: 38px; display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .radio-row label, .checkbox-row label { display: inline-flex; align-items: center; gap: 8px; color: #5f6b7c; font-weight: 700; white-space: nowrap; }
+    input[type="radio"], input[type="checkbox"] { accent-color: var(--brand); width: 16px; height: 16px; }
+    .add-spec { height: 38px; padding: 0 15px; border: 1px solid rgba(255, 102, 0, .32); border-radius: 8px; color: var(--brand); background: var(--brand-soft); font-weight: 800; white-space: nowrap; }
+
+    .editor { overflow: hidden; border: 1px solid var(--line-strong); border-radius: 10px; background: #fff; }
+    .editor-toolbar { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line); background: #fbfcfe; }
+    .editor-toolbar span { min-width: 44px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border-right: 1px solid var(--line); color: #777f8d; font-weight: 700; white-space: nowrap; }
+    .editor-content { min-height: 220px; padding: 18px; color: #1f2937; line-height: 1.8; }
+
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 30px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 -12px 28px rgba(15, 23, 42, 0.06);
+    }
+    .footer-tip { color: var(--muted); font-size: 12px; }
+    .footer-actions { display: flex; align-items: center; gap: 10px; }
+    .btn { height: 40px; min-width: 96px; padding: 0 18px; border-radius: 8px; font-weight: 800; }
+    .btn-plain { border: 1px solid var(--line-strong); background: #fff; color: #475467; }
+    .btn-plain:hover { background: #f8fafc; }
+    .btn-draft { border: 1px solid rgba(255, 102, 0, .32); background: var(--brand-soft); color: var(--brand); }
+    .btn-primary { border: 0; color: #fff; background: var(--brand); box-shadow: 0 8px 18px rgba(255, 102, 0, .24); }
+    .btn-primary:hover { background: var(--brand-hover); }
+
+    @media (max-width: 1280px) {
+      .modal-content { grid-template-columns: 1fr; }
+      .section-nav { position: static; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .section-nav-title { grid-column: 1 / -1; }
+      .spec-card-head { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .spec-delete { justify-self: start; }
+    }
+    @media (max-width: 980px) {
+      .admin-shell { grid-template-columns: 220px minmax(0, 1fr); }
+      .field, .span-6, .span-4, .span-8 { grid-column: span 12; }
+      .section-nav { display: none; }
+      .tier-head { display: none; }
+      .tier-row { grid-template-columns: 80px 1fr; }
+      .tier-row > * { grid-column: span 1; }
+      .tier-dash { display: none; }
+    }
+    @media (max-width: 760px) {
+      .modal-backdrop { padding: 12px; }
+      .product-modal { width: calc(100vw - 24px); max-height: calc(100vh - 24px); }
+      .modal-content, .modal-header, .modal-footer { padding-left: 16px; padding-right: 16px; }
+      .field { grid-template-columns: 1fr; gap: 8px; }
+      .label { justify-content: flex-start; min-height: auto; }
+      .sub-block-title { margin-left: 0; }
+      .select-row, .inline-row.three, .inline-row.unit, .upload-top { grid-template-columns: 1fr; }
+      .section-head, .modal-footer { align-items: flex-start; flex-direction: column; }
+      .footer-actions { width: 100%; justify-content: flex-end; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-shell" aria-hidden="true">
+    <aside class="sidebar">
+      <h2 class="side-title">拉美内容管理</h2>
+      <ul class="side-list">
+        <li>平台管理</li><li>活动管理</li><li>工具</li><li>直播管理</li><li>数据导入</li><li>服务管理</li><li>评论管理</li><li>货盘管理</li>
+        <li class="sub">产品分类列表</li><li class="sub active">商品列表</li><li class="sub">供应商列表</li><li class="sub">海外仓列表</li><li class="sub">SKU列表</li><li class="sub">财务配置</li>
+      </ul>
+    </aside>
+    <main class="workspace">
+      <div class="toolbar"><div class="search-card"></div><button class="reset-btn" type="button">↻ 重置</button></div>
+      <div class="table-mask"></div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop">
+    <section class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <header class="modal-header">
+        <div class="modal-title">
+          <h1 id="modalTitle">编辑商品</h1>
+          <p>按基础信息、价格库存、货物配送、商品参数和详情依次完善，带 * 为必填项。</p>
+        </div>
+        <button class="close-btn" type="button" aria-label="关闭">×</button>
+      </header>
+
+      <form class="modal-body" id="productForm">
+        <div class="modal-content">
+          <nav class="section-nav" aria-label="商品编辑步骤">
+            <div class="section-nav-title">填写流程</div>
+            <a href="#base"><span class="nav-dot">1</span>基础信息</a>
+            <a href="#spec"><span class="nav-dot">2</span>规格报价</a>
+            <a href="#delivery"><span class="nav-dot">3</span>物流配送</a>
+            <a href="#params"><span class="nav-dot">4</span>产品信息</a>
+            <a href="#detail"><span class="nav-dot">5</span>商品详情</a>
+          </nav>
+
+          <div class="form-flow">
+            <section class="form-section" id="base">
+              <div class="section-head">
+                <div class="section-title"><span class="section-index">1</span><h2>基础信息</h2></div>
+                <div class="section-desc">先确定商品标题、类目、图片和货盘来源</div>
+              </div>
+              <div class="section-body">
+                <div class="sub-block">
+                  <div class="sub-block-title">商品归属</div>
+                  <div class="form-grid">
+                    <div class="field span-12">
+                      <label class="label" for="productName"><span class="required">*</span>产品名称</label>
+                      <div class="control-group"><input class="input" id="productName" name="productName" value="Jue-Fish 织物缝补胶 衣服专用胶印花裤子鞋垫牛仔裤破洞布料胶" /></div>
+                    </div>
+                    <div class="field span-12">
+                      <label class="label"><span class="required">*</span>商品一二级类别</label>
+                      <div class="select-row">
+                        <select class="select" name="categoryLevel1"><option>家居用品</option></select>
+                        <select class="select" name="categoryLevel2"><option>家居清洁</option></select>
+                        <select class="select" name="categoryLevel3"><option>服饰清洁</option></select>
+                      </div>
+                    </div>
+                    <div class="field span-6">
+                      <label class="label" for="supplier"><span class="required">*</span>货盘商</label>
+                      <select class="select" id="supplier" name="supplier"><option>西之月测试</option></select>
+                    </div>
+                    <div class="field span-6">
+                      <label class="label" for="supplierCountry"><span class="required">*</span>货盘商所在国</label>
+                      <select class="select" id="supplierCountry" name="supplierCountry"><option>墨西哥</option></select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sub-block">
+                  <div class="sub-block-title">商品图片</div>
+                  <div class="form-grid">
+                    <div class="field span-12">
+                      <label class="label"><span class="required">*</span>产品图片</label>
+                      <div class="upload-card">
+                        <div class="upload-top">
+                          <button class="upload-action" type="button">☁ 选择图片</button>
+                          <span class="upload-rule">最少1张，最多7张；建议使用 1:1 白底主图，支持拖拽调整顺序。</span>
+                          <span class="image-count">已选择 8/7</span>
+                        </div>
+                        <div class="image-grid">
+                          <div class="image-tile"><div class="thumb"><span class="main-badge">主图</span>图片加载失败</div><div class="tile-meta"><span>商品图 01</span><span>1:1</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div>
+                          <div class="image-tile"><div class="thumb color"></div><div class="tile-meta"><span>商品图 02</span><span>1:1</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div>
+                          <div class="image-tile"><div class="thumb">图片加载失败</div><div class="tile-meta"><span>商品图 03</span><span>1:1</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div>
+                          <div class="image-tile"><div class="thumb color"></div><div class="tile-meta"><span>商品图 04</span><span>1:1</span></div><div class="tile-actions"><button class="link-btn" type="button">设为主图</button><button class="link-btn" type="button">删除</button></div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section" id="spec">
+              <div class="section-head">
+                <div class="section-title"><span class="section-index">2</span><h2>规格型号与价格库存</h2></div>
+                <div class="section-desc">统一维护 SKU、成本、报价规则和销售单位</div>
+              </div>
+              <div class="section-body">
+                <div class="form-grid">
+                  <div class="field span-12">
+                    <label class="label"><span class="required">*</span>规格型号</label>
+                    <div class="control-group">
+                      <div class="spec-board">
+                        <div class="spec-card">
+                          <div class="spec-card-head">
+                            <div class="spec-field"><span class="spec-label">规格型号</span><input class="table-input" name="specName[]" value="50ml" /></div>
+                            <div class="spec-field"><span class="spec-label">成本</span><input class="table-input" name="cost[]" value="59" /></div>
+                            <div class="spec-field"><span class="spec-label">币种</span><select class="table-input" name="currency[]"><option>MXN</option></select></div>
+                            <div class="spec-field"><span class="spec-label">SKU编码</span><input class="table-input" name="sku[]" value="js009-50r" /></div>
+                            <div class="spec-field"><span class="spec-label">报价规则</span><div class="quote-rule"><label><input type="radio" name="quoteRule1" />统一报价</label><label><input type="radio" name="quoteRule1" checked />按量阶梯报价</label></div></div>
+                            <button class="link-btn spec-delete" type="button">删除</button>
+                          </div>
+                          <div class="tier-panel">
+                            <div class="tier-head"><span>对外报价</span><span>起始量</span><span></span><span>结束量</span><span>报价</span><span>币种</span><span>操作</span></div>
+                            <div class="tier-list">
+                              <div class="tier-row"><span class="tier-name">阶梯1</span><input class="table-input" value="1" /><span class="tier-dash">—</span><input class="table-input" placeholder="结束量" /><input class="table-input" value="59" /><select class="table-input"><option>MXN</option></select><button class="link-btn" type="button">删除</button></div>
+                              <div class="tier-row"><span class="tier-name">阶梯2</span><input class="table-input" value="2" /><span class="tier-dash">—</span><input class="table-input" placeholder="结束量" /><input class="table-input" value="49" /><select class="table-input"><option>MXN</option></select><button class="link-btn" type="button">删除</button></div>
+                            </div>
+                            <button class="link-btn add-tier" type="button">＋ 添加阶梯报价</button>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="add-spec" type="button">增加规格型号</button>
+                    </div>
+                  </div>
+                  <div class="field span-12">
+                    <label class="label"><span class="required">*</span>库存单位</label>
+                    <div class="radio-row"><label><input type="radio" name="stockUnit" checked />件</label><label><input type="radio" name="stockUnit" />个</label><label><input type="radio" name="stockUnit" />瓶</label><label><input type="radio" name="stockUnit" />盒</label><label><input type="radio" name="stockUnit" />箱</label><label><input type="radio" name="stockUnit" />支</label><label><input type="radio" name="stockUnit" />套</label><label><input type="radio" name="stockUnit" />片</label><label><input type="radio" name="stockUnit" />袋</label><label><input type="radio" name="stockUnit" />包</label><label><input type="radio" name="stockUnit" />罐</label></div>
+                  </div>
+                  <div class="field span-12">
+                    <label class="label">库存单位与销售单位是否一致</label>
+                    <div class="radio-row"><label><input type="radio" name="unitSame" />不一致</label><label><input type="radio" name="unitSame" checked />一致</label></div>
+                  </div>
+                  <div class="field span-6"><label class="label"><span class="required">*</span>商品销售单位</label><div class="control-group"><input class="input" name="saleUnit" value="件" /></div></div>
+                  <div class="field span-6"><label class="label" for="minOrder"><span class="required">*</span>商品起订量</label><input class="input" id="minOrder" name="minOrder" value="1" /></div>
+                  <div class="field span-12"><label class="label"><span class="required">*</span>商品状态</label><div class="radio-row"><label><input type="radio" name="status" checked />上架</label><label><input type="radio" name="status" />下架</label></div></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section" id="delivery">
+              <div class="section-head"><div class="section-title"><span class="section-index">3</span><h2>货物配送</h2></div><div class="section-desc">配置履约方式和仓库信息</div></div>
+              <div class="section-body"><div class="form-grid">
+                <div class="field span-12"><label class="label"><span class="required">*</span>配送方式</label><div class="checkbox-row"><label><input type="checkbox" name="delivery" checked />代发货</label><label><input type="checkbox" name="delivery" />自提</label></div></div>
+                <div class="field span-12"><label class="label" for="warehouse"><span class="required">*</span>货物所在仓库</label><select class="select" id="warehouse" name="warehouse"><option>1</option></select></div>
+              </div></div>
+            </section>
+
+            <section class="form-section" id="params">
+              <div class="section-head"><div class="section-title"><span class="section-index">4</span><h2>产品信息</h2></div><div class="section-desc">完善尺寸、重量、装箱数、质保期和其他字段</div></div>
+              <div class="section-body"><div class="form-grid">
+                <div class="field span-12"><label class="label">产品尺寸</label><div class="inline-row three"><input class="input" name="productLength" placeholder="长(CM)" /><input class="input" name="productWidth" placeholder="宽(CM)" /><input class="input" name="productHeight" placeholder="高(CM)" /></div></div>
+                <div class="field span-6"><label class="label">产品净重</label><div class="inline-row unit"><input class="input" name="netWeight" /><select class="select" name="netWeightUnit"><option>请选择</option></select></div></div>
+                <div class="field span-6"><label class="label">产品毛重</label><div class="inline-row unit"><input class="input" name="grossWeight" value="58g" /><select class="select" name="grossWeightUnit"><option>请选择</option></select></div></div>
+                <div class="field span-6"><label class="label">装箱数</label><div class="inline-row unit"><input class="input" name="cartonQty" value="160pcs" /><select class="select" name="cartonQtyUnit"><option>请选择</option></select></div></div>
+                <div class="field span-6"><label class="label">箱规</label><div class="inline-row three"><input class="input" name="cartonLength" placeholder="长(CM)" /><input class="input" name="cartonWidth" placeholder="宽(CM)" /><input class="input" name="cartonHeight" placeholder="高(CM)" /></div></div>
+                <div class="field span-6"><label class="label">一箱重量</label><div class="inline-row unit"><input class="input" name="cartonWeight" value="9.95kg" /><select class="select" name="cartonWeightUnit"><option>请选择</option></select></div></div>
+                <div class="field span-6"><label class="label">保质期</label><div class="inline-row unit"><input class="input" name="shelfLife" value="3年" /><select class="select" name="shelfLifeUnit"><option>请选择</option></select></div></div>
+                <div class="field span-12"><label class="label">其他字段</label><div><button class="add-spec" type="button">新增字段</button></div></div>
+              </div></div>
+            </section>
+
+            <section class="form-section" id="detail">
+              <div class="section-head"><div class="section-title"><span class="section-index">5</span><h2>商品详情</h2></div><div class="section-desc">用于展示给采购端的图文说明</div></div>
+              <div class="section-body"><div class="field span-12">
+                <label class="label">商品详情</label>
+                <div class="editor"><div class="editor-toolbar"><span>正文</span><span>“</span><span>B</span><span>U</span><span>I</span><span>···</span><span>A</span><span>字号</span><span>字体</span><span>行高</span><span>☷</span><span>☑</span><span>☻</span><span>🔗</span><span>▧</span></div><div class="editor-content" contenteditable="true">我们的织物缝补胶含有聚乙烯，酚醛树脂。它可以缝补衣物，鞋子，帽子等等，简单易用，易于存放，有较强的附着力。它的使用方法很简单：清洁并打磨布的脱胶部分；涂胶后，对齐位置并立即粘贴超过 20 秒，将胶水均匀地涂抹在裂缝的两侧。不要使用过多的胶水，以防止胶水溢出，可用橡皮筋或夹子固定24小时以上。并且可以让我们需要缝补的东西更加牢固。</div></div>
+              </div></div>
+            </section>
+          </div>
+        </div>
+      </form>
+
+      <footer class="modal-footer">
+        <div class="footer-tip">建议从上到下完成填写；保存草稿不会改变当前上架状态。</div>
+        <div class="footer-actions"><button class="btn btn-plain" type="button">取消</button><button class="btn btn-draft" type="button">保存草稿</button><button class="btn btn-primary" type="submit" form="productForm">确认保存</button></div>
+      </footer>
+    </section>
+  </div>
+</body>
+</html>
